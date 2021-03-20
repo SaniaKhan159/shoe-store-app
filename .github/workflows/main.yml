@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: shoe-store-app
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,19 +19,19 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
+      # Install node version 12
       - name: Setup Node.js environment
         uses: actions/setup-node@v2-beta
         with:
-          version: 12
+          node-version: '12'
           
-      - name: Github action for yarn
-        uses: borales/actions-yarn@v2.1.0
-        with:
-          cmd: install 
-          
-      - name: Creating build
-        run: yarn build
+      # Install npm packages
+      - name: Install packages
+        run: npm install
+
+      # Build react app
+      - name: Build the app
+        run: npm run build
         
       - name: Installig surge
         run: npm install -g surge
